@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Modul Suhu & Kalor - PBL SMK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #059669;
+            --warning: #dc2626;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .navigation {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(45deg, #e2e8f0, #cbd5e1);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+
+        .active {
+            display: block;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent);
+            font-size: 2rem;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            color: var(--accent);
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .card.critical {
+            border-left-color: var(--warning);
+            background: #fff7ed;
+        }
+
+        .card.creative {
+            border-left-color: var(--accent);
+            background: #f0fdf4;
+        }
+
+        .card.pbl {
+            border-left-color: var(--secondary);
+            background: #f5f3ff;
+        }
+
+        .card.author {
+            background: linear-gradient(135deg, #7c3aed, #2563eb);
+            color: white;
+            border-left: 4px solid white;
+        }
+
+        .formula {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 4px solid var(--accent);
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card h4 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .reflection {
+            background: #fffbeb;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .assessment {
+            background: #eff6ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .collaboration {
+            background: #f0fdfa;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 4px solid #059669;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .step i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .step h5 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 90%;
+                justify-content: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .thinking-map {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px dashed var(--gray);
+        }
+
+        .thinking-map h4 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .skill-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .quote {
+            font-style: italic;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .author-profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .author-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #7c3aed, #2563eb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 E-MODUL PEMBELAJARAN</h1>
+            <h2>SUHU DAN KALOR</h2>
+            <p class="subtitle">Berbasis Problem Based Learning (PBL)</p>
+            <p class="subtitle">Untuk Siswa Kelas XI SMK</p>
+            <p class="tagline">Meningkatkan Kemampuan Berpikir Kritis dan Kreatif</p>
+        </header>
+
+        <nav class="navigation">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="showSection('intro')">
+                    <i class="fas fa-home"></i> Pendahuluan
+                </button>
+                <button class="tab-btn" onclick="showSection('pbl')">
+                    <i class="fas fa-project-diagram"></i> PBL Framework
+                </button>
+                <button class="tab-btn" onclick="showSection('konsep')">
+                    <i class="fas fa-book"></i> Konsep Dasar
+                </button>
+                <button class="tab-btn" onclick="showSection('project')">
+                    <i class="fas fa-lightbulb"></i> Proyek PBL
+                </button>
+                <button class="tab-btn" onclick="showSection('thinking')">
+                    <i class="fas fa-brain"></i> Berpikir Kritis/Kreatif
+                </button>
+                <button class="tab-btn" onclick="showSection('assessment')">
+                    <i class="fas fa-clipboard-check"></i> Penilaian
+                </button>
+                <button class="tab-btn" onclick="showSection('author')">
+                    <i class="fas fa-user"></i> Penyusun
+                </button>
+            </div>
+        </nav>
+
+        <!-- PENDAHULUAN -->
+        <section id="intro" class="content-section active">
+            <h2><i class="fas fa-rocket"></i> PENDAHULUAN</h2>
+            
+            <div class="card">
+                <h3>Selamat Datang di E-Modul Suhu dan Kalor Berbasis PBL!</h3>
+                <p>Modul ini dirancang khusus untuk membantu siswa kelas XI SMK menguasai konsep suhu dan kalor melalui pendekatan <strong>Problem Based Learning (PBL)</strong>. Pendekatan ini akan meningkatkan kemampuan berpikir kritis dan kreatif kalian dalam memecahkan masalah nyata yang berkaitan dengan fenomena fisika.</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Berpikir Kreatif</h4>
+                    <p>Menghasilkan ide inovatif untuk solusi masalah</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-search"></i>
+                    <h4>Berpikir Kritis</h4>
+                    <p>Menganalisis dan mengevaluasi informasi secara objektif</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Kolaborasi</h4>
+                    <p>Bekerja sama dalam tim untuk mencapai tujuan bersama</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-comments"></i>
+                    <h4>Komunikasi</h4>
+                    <p>Menyampaikan ide dan solusi secara efektif</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                <p>"Pendidikan bukanlah pengisian wadah, tetapi menyalakan api. Dalam PBL, kalian bukan hanya belajar konsep, tetapi belajar bagaimana menggunakan konsep tersebut untuk memecahkan masalah nyata."</p>
+                <p style="text-align: right; font-weight: bold;">- William Arthur Ward</p>
+            </div>
+
+            <h3><i class="fas fa-bullseye"></i> Tujuan Pembelajaran</h3>
+            <div class="card">
+                <ul>
+                    <li>Memahami konsep suhu dan kalor serta aplikasinya dalam kehidupan sehari-hari</li>
+                    <li>Mengembangkan kemampuan berpikir kritis melalui analisis masalah kompleks</li>
+                    <li>Meningkatkan kreativitas dalam merancang solusi inovatif</li>
+                    <li>Mempraktikkan keterampilan kolaborasi dan komunikasi dalam tim</li>
+                    <li>Menerapkan prinsip ilmiah untuk memecahkan masalah teknis</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-industry"></i> Relevansi dengan Dunia Kerja</h3>
+            <div class="card">
+                <p>Pemahaman tentang suhu dan kalor sangat penting dalam berbagai bidang kejuruan SMK seperti:</p>
+                <ul>
+                    <li><strong>Teknik Mesin</strong>: Sistem pendinginan mesin, termodinamika</li>
+                    <li><strong>Teknik Elektronika</strong>: Dissipasi panas komponen elektronik</li>
+                    <li><strong>Teknik Refrigerasi</strong>: Prinsip kerja kulkas dan AC</li>
+                    <li><strong>Teknik Kimia</strong>: Reaksi eksotermik dan endotermik</li>
+                    <li><strong>Teknik Bangunan</strong>: Isolasi termal bangunan</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PBL FRAMEWORK -->
+        <section id="pbl" class="content-section">
+            <h2><i class="fas fa-project-diagram"></i> FRAMEWORK PBL</h2>
+            
+            <div class="card pbl">
+                <h3>Apa itu Problem Based Learning (PBL)?</h3>
+                <p><strong>Problem Based Learning (PBL)</strong> adalah pendekatan pembelajaran yang dimulai dengan masalah nyata sebagai konteks untuk mempelajari konsep dan prinsip yang relevan. Dalam PBL, siswa bekerja dalam kelompok kecil untuk menyelidiki masalah autentik secara kolaboratif.</p>
+            </div>
+
+            <h3><i class="fas fa-cogs"></i> Komponen Utama PBL</h3>
+            <div class="steps">
+                <div class="step">
+                    <i class="fas fa-question-circle"></i>
+                    <h5>Masalah Nyata</h5>
+                    <p>Masalah kompleks yang relevan dengan kehidupan nyata</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-users"></i>
+                    <h5>Kolaborasi</h5>
+                    <p>Kerja sama dalam kelompok untuk memecahkan masalah</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-search"></i>
+                    <h5>Investigasi</h5>
+                    <p>Penelitian mandiri untuk mencari solusi</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-lightbulb"></i>
+                    <h5>Solusi Kreatif</h5>
+                    <p>Pengembangan solusi inovatif dan praktis</p>
+                </div>
+            </div>
+
+            <h3><i class="fas fa-tasks"></i> Tahapan PBL dalam Modul Ini</h3>
+            <div class="card">
+                <ol>
+                    <li><strong>Orientasi terhadap Masalah</strong>: Mengidentifikasi masalah nyata yang berkaitan dengan suhu dan kalor</li>
+                    <li><strong>Organisasi untuk Belajar</strong>: Membentuk kelompok dan merencanakan investigasi</li>
+                    <li><strong>Investigasi Mandiri</strong>: Mengeksplorasi konsep dan mencari solusi</li>
+                    <li><strong>Pengembangan dan Presentasi Solusi</strong>: Merancang dan mempresentasikan solusi</li>
+                    <li><strong>Refleksi dan Evaluasi</strong>: Mengevaluasi proses dan hasil belajar</li>
+                </ol>
+            </div>
+
+            <div class="thinking-map">
+                <h4><i class="fas fa-brain"></i> Hubungan PBL dengan Kemampuan Berpikir Tingkat Tinggi</h4>
+                <p style="text-align: center;">
+                    PBL → Mengembangkan Kemampuan Berpikir Kritis dan Kreatif melalui:
+                </p>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
+                    <div style="text-align: center; margin: 10px;">
+                        <i class="fas fa-question" style="font-size: 2rem; color: var(--warning);"></i>
+                        <p>Analyzing</p>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <i class="fas fa-sync" style="font-size: 2rem; color: var(--accent);"></i>
+                        <p>Evaluating</p>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <i class="fas fa-lightbulb" style="font-size: 2rem; color: var(--secondary);"></i>
+                        <p>Creating</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KONSEP DASAR -->
+        <section id="konsep" class="content-section">
+            <h2><i class="fas fa-book-open"></i> KONSEP DASAR SUHU DAN KALOR</h2>
+            
+            <h3><i class="fas fa-thermometer-half"></i> 1. Suhu</h3>
+            <div class="card">
+                <p><strong>Suhu</strong> adalah ukuran derajat panas atau dinginnya suatu benda, yang merupakan ukuran energi kinetik rata-rata partikel penyusun benda tersebut.</p>
+                
+                <h4>Konsep Kritis:</h4>
+                <ul>
+                    <li>Suhu tidak sama dengan kalor (meskipun sering disalahartikan)</li>
+                    <li>Suhu adalah sifat intensif (tidak tergantung massa)</li>
+                    <li>Satuan SI: Kelvin (K), juga digunakan Celsius (°C) dan Fahrenheit (°F)</li>
+                </ul>
+            </div>
+
+            <div class="formula">
+                <h4>Konversi Suhu:</h4>
+                <p><strong>Celsius ke Kelvin:</strong> K = °C + 273.15</p>
+                <p><strong>Celsius ke Fahrenheit:</strong> °F = (9/5 × °C) + 32</p>
+                <p><strong>Fahrenheit ke Celsius:</strong> °C = 5/9 × (°F - 32)</p>
+            </div>
+
+            <h3><i class="fas fa-fire"></i> 2. Kalor</h3>
+            <div class="card">
+                <p><strong>Kalor</strong> adalah energi yang berpindah dari benda bersuhu tinggi ke benda bersuhu rendah karena perbedaan suhu.</p>
+                
+                <h4>Konsep Kritis:</h4>
+                <ul>
+                    <li>Kalor selalu mengalir dari suhu tinggi ke suhu rendah</li>
+                    <li>Kalor adalah sifat ekstensif (tergantung massa)</li>
+                    <li>Satuan: Joule (J) atau kalori (1 kal = 4.184 J)</li>
+                </ul>
+            </div>
+
+            <div class="formula">
+                <h4>Kalor untuk Perubahan Suhu:</h4>
+                <p><strong>Q = m × c × ΔT</strong></p>
+                <p>Dimana:</p>
+                <ul>
+                    <li>Q = kalor (J)</li>
+                    <li>m = massa (kg)</li>
+                    <li>c = kalor jenis (J/kg°C)</li>
+                    <li>ΔT = perubahan suhu (°C)</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-expand"></i> 3. Pemuaian</h3>
+            <div class="card">
+                <p><strong>Pemuaian</strong> adalah pertambahan ukuran benda akibat kenaikan suhu. Terjadi karena partikel bergetar lebih intens dan membutuhkan lebih banyak ruang.</p>
+                
+                <h4>Jenis Pemuaian:</h4>
+                <ul>
+                    <li><strong>Pemuaian Panjang:</strong> ΔL = L₀ × α × ΔT</li>
+                    <li><strong>Pemuaian Luas:</strong> ΔA = A₀ × β × ΔT</li>
+                    <li><strong>Pemuaian Volume:</strong> ΔV = V₀ × γ × ΔT</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-exchange-alt"></i> 4. Perpindahan Kalor</h3>
+            <div class="card">
+                <h4>Tiga Cara Perpindahan Kalor:</h4>
+                <ol>
+                    <li><strong>Konduksi:</strong> Melalui medium tanpa perpindahan partikel</li>
+                    <li><strong>Konveksi:</strong> Melalui perpindahan partikel fluida</li>
+                    <li><strong>Radiasi:</strong> Tanpa medium (gelombang elektromagnetik)</li>
+                </ol>
+            </div>
+
+            <div class="formula">
+                <h4>Hukum Stefan-Boltzmann (Radiasi):</h4>
+                <p><strong>Q/t = e × σ × A × T⁴</strong></p>
+                <p>Dimana σ = 5.67 × 10⁻⁸ W/m²K⁴</p>
+            </div>
+        </section>
+
+        <!-- PROYEK PBL -->
+        <section id="project" class="content-section">
+            <h2><i class="fas fa-lightbulb"></i> PROYEK PBL: SOLUSI EFISIENSI ENERGI</h2>
+            
+            <div class="project-card">
+                <h4><i class="fas fa-exclamation-triangle"></i> MASALAH NYATA</h4>
+                <p>Sebuah bengkel otomotif di daerah tropis mengalami masalah peningkatan konsumsi energi listrik untuk pendinginan dan pemanas ruangan. Biaya listrik meningkat 40% dalam 6 bulan terakhir. Pemilik bengkel membutuhkan solusi inovatif untuk mengurangi konsumsi energi tanpa mengurangi kenyamanan dan produktivitas.</p>
+            </div>
+
+            <h3><i class="fas fa-bullseye"></i> TANTANGAN PROYEK</h3>
+            <div class="card">
+                <p>Sebagai tim ahli energi, kalian ditugaskan untuk:</p>
+                <ol>
+                    <li>Menganalisis penyebab peningkatan konsumsi energi</li>
+                    <li>Mengidentifikasi fenomena fisika terkait suhu dan kalor</li>
+                    <li>Merancang solusi inovatif berbasis prinsip fisika</li>
+                    <li>Membuat prototipe atau model solusi</li>
+                    <li>Menyusun laporan rekomendasi teknis dan ekonomis</li>
+                </ol>
+            </div>
+
+            <h3><i class="fas fa-tasks"></i> LANGKAH-LANGKAH PROYEK</h3>
+            
+            <div class="steps">
+                <div class="step">
+                    <i class="fas fa-search"></i>
+                    <h5>Identifikasi Masalah</h5>
+                    <p>Menganalisis situasi bengkel dan faktor-faktor yang mempengaruhi suhu</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-flask"></i>
+                    <h5>Investigasi Fisika</h5>
+                    <p>Meneliti konsep suhu, kalor, dan perpindahan energi</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-lightbulb"></i>
+                    <h5>Ide Kreatif</h5>
+                    <p>Menghasilkan solusi inovatif berbasis prinsip fisika</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-cogs"></i>
+                    <h5>Implementasi</h5>
+                    <p>Membuat prototipe atau model solusi</p>
+                </div>
+            </div>
+
+            <h3><i class="fas fa-tools"></i> AREA INVESTIGASI</h3>
+            <div class="card">
+                <h4>Konsep Fisika yang Harus Dipelajari:</h4>
+                <ul>
+                    <li>Perpindahan kalor (konduksi, konveksi, radiasi)</li>
+                    <li>Isolasi termal dan material konduktor/insulator</li>
+                    <li>Sistem pendinginan dan pemanasan efisien</li>
+                    <li>Pemuaian material akibat perubahan suhu</li>
+                    <li>Termodinamika dan efisiensi energi</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-clipboard-list"></i> DELIVERABLES PROYEK</h3>
+            <div class="card">
+                <ol>
+                    <li><strong>Laporan Analisis Masalah</strong> (individual)</li>
+                    <li><strong>Proposal Solusi Teknis</strong> (kelompok)</li>
+                    <li><strong>Prototipe atau Model Solusi</strong> (kelompok)</li>
+                    <li><strong>Presentation Deck</strong> (kelompok)</li>
+                    <li><strong>Refleksi Proses Belajar</strong> (individual)</li>
+                </ol>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn" onclick="showSection('assessment')">
+                    <i class="fas fa-clipboard-check"></i> Lihat Rubrik Penilaian
+                </button>
+                <button class="btn btn-outline" onclick="showSection('thinking')">
+                    <i class="fas fa-brain"></i> Strategi Berpikir Kritis
+                </button>
+            </div>
+        </section>
+
+        <!-- BERPIKIR KRITIS/KREATIF -->
+        <section id="thinking" class="content-section">
+            <h2><i class="fas fa-brain"></i> PENGEMBANGAN BERPIKIR KRITIS & KREATIF</h2>
+            
+            <h3><i class="fas fa-search"></i> STRATEGI BERPIKIR KRITIS</h3>
+            
+            <div class="card critical">
+                <h4>1. Analisis Masalah Kompleks</h4>
+                <p><strong>Pertanyaan Pemicu:</strong></p>
+                <ul>
+                    <li>Apa penyebab utama peningkatan konsumsi energi?</li>
+                    <li>Bagaimana faktor lingkungan mempengaruhi suhu bengkel?</li>
+                    <li>Apa hubungan antara desain bangunan dan efisiensi energi?</li>
+                </ul>
+            </div>
+
+            <div class="card critical">
+                <h4>2. Evaluasi Solusi</h4>
+                <p><strong>Kriteria Evaluasi:</strong></p>
+                <ul>
+                    <li>Efektivitas: Apakah solusi benar-benar menyelesaikan masalah?</li>
+                    <li>Efisiensi: Apakah solusi hemat biaya dan energi?</li>
+                    <li>Feasibility: Apakah solusi dapat diimplementasikan secara praktis?</li>
+                    <li>Sustainability: Apakah solusi ramah lingkungan dan berkelanjutan?</li>
+                </ul>
+            </div>
+
+            <div class="card critical">
+                <h4>3. Metakognisi</h4>
+                <p><strong>Refleksi Proses Berpikir:</strong></p>
+                <ul>
+                    <li>Apa asumsi awal yang saya buat? Benar atau salah?</li>
+                    <li>Bukti apa yang saya gunakan untuk mendukung argumen?</li>
+                    <li>Bagaimana saya bisa memperbaiki pendekatan saya?</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-lightbulb"></i> STRATEGI BERPIKIR KREATIF</h3>
+            
+            <div class="card creative">
+                <h4>1. Brainstorming Ide</h4>
+                <p><strong>Teknik SCAMPER:</strong></p>
+                <ul>
+                    <li><strong>Substitute:</strong> Mengganti material atau sistem</li>
+                    <li><strong>Combine:</strong> Menggabungkan teknologi atau fungsi</li>
+                    <li><strong>Adapt:</strong> Menyesuaikan teknologi dari bidang lain</li>
+                    <li><strong>Modify:</strong> Memodifikasi desain atau proses</li>
+                    <li><strong>Put to another use:</strong> Memanfaatkan limbah panas</li>
+                    <li><strong>Eliminate:</strong> Menghilangkan komponen yang tidak perlu</li>
+                    <li><strong>Reverse:</strong> Membalik urutan proses atau aliran energi</li>
+                </ul>
+            </div>
+
+            <div class="card creative">
+                <h4>2. Desain Berbasis Prinsip Fisika</h4>
+                <p><strong>Inspirasi dari Alam (Biomimikri):</strong></p>
+                <ul>
+                    <li>Sistem pendinginan seperti pada daun teratai</li>
+                    <li>Isolasi termal seperti pada sarang lebah</li>
+                    <li>Sirkulasi udara seperti pada sarang rayap</li>
+                </ul>
+            </div>
+
+            <div class="card creative">
+                <h4>3. Prototyping Iteratif</h4>
+                <p><strong>Siklus Desain Kreatif:</strong></p>
+                <ol>
+                    <li><strong>Empathize:</strong> Memahami kebutuhan pengguna</li>
+                    <li><strong>Define:</strong> Mendefinisikan masalah dengan jelas</li>
+                    <li><strong>Ideate:</strong> Menghasilkan banyak ide solusi</li>
+                    <li><strong>Prototype:</strong> Membuat model awal</li>
+                    <li><strong>Test:</strong> Mengujicoba dan merevisi</li>
+                </ol>
+            </div>
+
+            <h3><i class="fas fa-users"></i> KOLABORASI TIM</h3>
+            <div class="collaboration">
+                <h4>Peran dalam Tim:</h4>
+                <ul>
+                    <li><strong>Researcher:</strong> Mengumpulkan data dan informasi teknis</li>
+                    <li><strong>Analyst:</strong> Menganalisis data dan masalah</li>
+                    <li><strong>Designer:</strong> Merancang solusi dan prototipe</li>
+                    <li><strong>Presenter:</strong> Menyusun presentasi dan laporan</li>
+                    <li><strong>Facilitator:</strong> Mengkoordinasi kerja tim</li>
+                </ul>
+                
+                <h4 style="margin-top: 20px;">Keterampilan Kolaboratif:</h4>
+                <ul>
+                    <li>Active listening dan memberi feedback konstruktif</li>
+                    <li>Negotiation dan conflict resolution</li>
+                    <li>Delegation dan manajemen waktu</li>
+                    <li>Presentation dan storytelling</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PENILAIAN -->
+        <section id="assessment" class="content-section">
+            <h2><i class="fas fa-clipboard-check"></i> SISTEM PENILAIAN</h2>
+            
+            <div class="assessment">
+                <h3><i class="fas fa-balance-scale"></i> RUBRIK PENILAIAN KOMPETENSI</h3>
+                
+                <table>
+                    <tr>
+                        <th>Kompetensi</th>
+                        <th>Bobot</th>
+                        <th>Indikator</th>
+                        <th>Skor Maks</th>
+                    </tr>
+                    <tr>
+                        <td>Pemahaman Konsep</td>
+                        <td>25%</td>
+                        <td>Akurasi konsep fisika, aplikasi prinsip suhu dan kalor</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>Berpikir Kritis</td>
+                        <td>25%</td>
+                        <td>Analisis masalah, evaluasi solusi, metakognisi</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>Berpikir Kreatif</td>
+                        <td>25%</td>
+                        <td>Inovasi solusi, desain kreatif, prototipe</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>Kolaborasi & Komunikasi</td>
+                        <td>15%</td>
+                        <td>Kerja tim, presentasi, dokumentasi</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Refleksi</td>
+                        <td>10%</td>
+                        <td>Evaluasi proses belajar, identifikasi pembelajaran</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>100%</strong></td>
+                        <td></td>
+                        <td><strong>100</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3><i class="fas fa-star"></i> RUBRIK PENILAIAN BERPIKIR KRITIS</h3>
+            <div class="card critical">
+                <table>
+                    <tr>
+                        <th>Level</th>
+                        <th>Kriteria</th>
+                        <th>Deskripsi</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Excellent (9-10)</strong></td>
+                        <td>Analisis Mendalam</td>
+                        <td>Menganalisis masalah dengan sangat komprehensif, menggunakan berbagai sumber, dan memberikan evaluasi kritis terhadap solusi</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Good (7-8)</strong></td>
+                        <td>Analisis Baik</td>
+                        <td>Menganalisis masalah dengan baik, menggunakan beberapa sumber, dan memberikan evaluasi terhadap solusi</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fair (5-6)</strong></td>
+                        <td>Analisis Dasar</td>
+                        <td>Menganalisis masalah secara dasar, menggunakan sumber terbatas, dan evaluasi solusi masih perlu pengembangan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Needs Improvement (1-4)</strong></td>
+                        <td>Analisis Terbatas</td>
+                        <td>Analisis masalah masih sangat terbatas, sumber tidak memadai, dan evaluasi solusi belum jelas</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3><i class="fas fa-lightbulb"></i> RUBRIK PENILAIAN BERPIKIR KREATIF</h3>
+            <div class="card creative">
+                <table>
+                    <tr>
+                        <th>Level</th>
+                        <th>Kriteria</th>
+                        <th>Deskripsi</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Excellent (9-10)</strong></td>
+                        <td>Inovasi Tinggi</td>
+                        <td>Solusi sangat inovatif, memanfaatkan prinsip fisika secara kreatif, dan memiliki nilai implementasi tinggi</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Good (7-8)</strong></td>
+                        <td>Inovasi Baik</td>
+                        <td>Solusi cukup inovatif, memanfaatkan prinsip fisika dengan baik, dan memiliki potensi implementasi</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fair (5-6)</strong></td>
+                        <td>Inovasi Dasar</td>
+                        <td>Solusi standar dengan sedikit inovasi, pemanfaatan prinsip fisika masih perlu pengembangan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Needs Improvement (1-4)</strong></td>
+                        <td>Inovasi Terbatas</td>
+                        <td>Solusi sangat terbatas, tidak memanfaatkan prinsip fisika secara efektif</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3><i class="fas fa-chart-line"></i> REFLEKSI DIRI</h3>
+            <div class="reflection">
+                <h4>Pertanyaan Refleksi untuk Setiap Siswa:</h4>
+                <ol>
+                    <li>Apa yang paling menantang dalam proyek ini dan bagaimana saya mengatasinya?</li>
+                    <li>Konsep fisika mana yang paling saya kuasai dan bagaimana saya menerapkannya?</li>
+                    <li>Bagaimana kemampuan berpikir kritis saya berkembang selama proyek ini?</li>
+                    <li>Apa ide kreatif terbaik yang saya hasilkan dan bagaimana saya mengembangkannya?</li>
+                    <li>Apa yang akan saya lakukan berbeda jika mengulang proyek ini?</li>
+                    <li>Bagaimana pengalaman ini akan membantu saya dalam karier masa depan?</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- PENYUSUN -->
+        <section id="author" class="content-section">
+            <h2><i class="fas fa-user"></i> PROFIL PENYUSUN</h2>
+            
+            <div class="card author">
+                <div class="author-profile">
+                    <div class="author-photo">
+                        RAN
+                    </div>
+                    <div class="author-info">
+                        <h4>RIZKA ALFIN NUR ROZAN</h4>
+                        <p><i class="fas fa-graduation-cap"></i> Jurusan Pendidikan Fisika</p>
+                        <p><i class="fas fa-university"></i> Fakultas Matematika dan Ilmu Pengetahuan Alam</p>
+                        <p><i class="fas fa-school"></i> Universitas Negeri Semarang</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <h4><i class="fas fa-quote-left"></i> Motivasi</h4>
+                    <p>"Saya menyusun e-modul ini dengan harapan dapat membantu siswa SMK mengembangkan kemampuan berpikir kritis dan kreatif melalui pendekatan pembelajaran yang inovatif dan relevan dengan dunia kerja."</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-info-circle"></i> Tentang Penyusun</h3>
+                <p>Rizka Alfin Nur Rozan adalah mahasiswa Jurusan Pendidikan Fisika FMIPA Universitas Negeri Semarang. Memiliki ketertarikan khusus dalam pengembangan media pembelajaran berbasis teknologi dan inovasi pembelajaran fisika.</p>
+                
+                <h4><i class="fas fa-briefcase"></i> Pengalaman Akademik:</h4>
+                <ul>
+                    <li>Anggota Himafi (Himpunan Mahasiswa Fisika) UNNES</li>
+                    <li>Peserta berbagai seminar pendidikan fisika</li>
+                    <li>Terlibat dalam pengembangan modul pembelajaran interaktif</li>
+                    <li>Fokus penelitian pada PBL dan STEM Education</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-envelope"></i> Kontak</h3>
+                <p>Untuk pertanyaan, saran, atau masukan terkait e-modul ini, silakan hubungi:</p>
+                <p><i class="fas fa-envelope"></i> Email: rizkaalfinnr@unes.ac.id</p>
+                <p><i class="fas fa-map-marker-alt"></i> Alamat: FMIPA UNNES, Kota Semarang, Jawa Tengah</p>
+            </div>
+
+            <div class="quote">
+                <p>"Pendidikan adalah proses membantu manusia menemukan potensi terdalam dalam dirinya sendiri."</p>
+                <p style="text-align: right; font-weight: bold;">- Thomas Moore</p>
+            </div>
+        </section>
+
+        <footer>
+            <h3>🎓 KESIMPULAN</h3>
+            <p>E-Modul Suhu dan Kalor Berbasis PBL ini dirancang untuk membantu siswa SMK mengembangkan tidak hanya pemahaman konsep fisika, tetapi juga kemampuan berpikir kritis dan kreatif yang sangat dibutuhkan di dunia kerja modern.</p>
+            <br>
+            <p><strong>Ingat:</strong> Belajar bukan hanya tentang menghafal rumus, tetapi tentang memahami bagaimana menerapkan konsep untuk memecahkan masalah nyata!</p>
+            <br>
+            <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+                <div class="icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+            </div>
+            <p><strong>Disusun oleh:</strong> RIZKA ALFIN NUR ROZAN</p>
+            <p><strong>Jurusan Pendidikan Fisika - FMIPA Universitas Negeri Semarang</strong></p>
+            <p><strong>Tahun:</strong> 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Sembunyikan semua section
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Hapus active class dari semua tombol
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Tampilkan section yang dipilih
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Tambahkan active class ke tombol yang diklik
+            event.target.closest('.tab-btn').classList.add('active');
+            
+            // Scroll ke atas
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Tampilkan intro secara default
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('intro');
+        });
+    </script>
+</body>
+</html>
